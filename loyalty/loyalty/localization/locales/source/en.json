@@ -1,0 +1,10 @@
+[
+  {
+    "key": "InvalidCredentials",
+    "value": "Invalid credentials"
+  },
+  {
+    "key": "UserNotFound",
+    "value": "User not found"
+  }
+]
