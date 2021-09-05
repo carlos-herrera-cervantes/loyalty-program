@@ -6,5 +6,9 @@
   {
     "key": "UserNotFound",
     "value": "Usuario no encontrado"
+  },
+  {
+    "key": "Forbidden",
+    "value": "Acceso denegado"
   }
 ]

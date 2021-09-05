@@ -7,19 +7,26 @@ import jwt
 import logging
 
 from ..models.user import User
+from ..models.access_token import AccessToken
 
 logger = logging.getLogger(__name__)
 
 class JwtAuthentication(BaseAuthentication):
-    def authenticate(self, request: Request) -> Tuple(User, None):
+    def authenticate(self, request: Request) -> Tuple[User, None]:
         authorization_header: str = request.headers.get('authorization')
 
         if not authorization_header:
             raise AuthenticationFailed
 
+        access_token_header: str = authorization_header.split(' ').pop()
+        access_token: AccessToken = AccessToken.objects.get(token=access_token_header)
+
+        if not access_token:
+            raise AuthenticationFailed
+
         try:
             payload: dict = jwt.decode(
-                authorization_header.split(' ').pop(),
+                access_token_header,
                 settings.SECRET_KEY,
                 algorithms=['HS256'],
             )
@@ -30,4 +37,6 @@ class JwtAuthentication(BaseAuthentication):
             return user, None
         except Exception as e:
             logger.error('Error when decoding JWT - Login Middleware: ', e)
+            AccessToken.objects.filter(token=access_token_header).delete()
+
             raise AuthenticationFailed
