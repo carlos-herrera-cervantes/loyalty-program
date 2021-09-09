@@ -19,7 +19,12 @@ class JwtAuthentication(BaseAuthentication):
             raise AuthenticationFailed
 
         access_token_header: str = authorization_header.split(' ').pop()
-        access_token: AccessToken = AccessToken.objects.get(token=access_token_header)
+
+        try:
+            access_token: AccessToken = AccessToken.objects.get(token=access_token_header)
+        except Exception as e:
+            logger.error('Error when finding the current access token - Login Middleware: ', e)
+            raise AuthenticationFailed
 
         if not access_token:
             raise AuthenticationFailed

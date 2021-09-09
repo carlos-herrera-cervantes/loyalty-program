@@ -2,13 +2,22 @@ from rest_framework.mixins import RetrieveModelMixin
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.response import Response
 from rest_framework.request import Request
-from rest_framework.status import HTTP_204_NO_CONTENT, HTTP_403_FORBIDDEN
+from rest_framework.renderers import JSONRenderer
+from rest_framework.status import (
+    HTTP_201_CREATED,
+    HTTP_204_NO_CONTENT,
+    HTTP_403_FORBIDDEN,
+    HTTP_422_UNPROCESSABLE_ENTITY
+)
 from bcrypt import checkpw
 from django.conf import settings
+from json import loads
 import datetime
 import jwt
 
-from ..models.user import User
+
+from ..models.user import User, UserSerializer
+from ..models.customer import Customer, CustomerSerializer
 from ..models.access_token import AccessToken
 from ..localization.locales.strategies.strategy_manager import initialize_manager
 
@@ -36,7 +45,7 @@ class AuthView(GenericViewSet, RetrieveModelMixin):
                 'id': str(user.id),
                 'email': email,
                 'role': user.roles,
-                'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=4),
+                'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=4),
             },
             settings.SECRET_KEY,
             algorithm='HS256',
@@ -62,3 +71,25 @@ class AuthView(GenericViewSet, RetrieveModelMixin):
         AccessToken.objects.filter(token=access_token).delete()
 
         return Response(status=HTTP_204_NO_CONTENT)
+
+    def sign_up_user(self, request: Request) -> Response:
+        serializer: UserSerializer = UserSerializer(data=request.data)
+
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
+
+        created = User.objects.create(**request.data)
+        json = JSONRenderer().render(UserSerializer(created).data)
+
+        return Response(loads(json), status=HTTP_201_CREATED)
+
+    def sign_up_customer(self, request: Request) -> Response:
+        serializer: CustomerSerializer = CustomerSerializer(data=request.data)
+
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
+
+        created = Customer.objects.create(**request.data)
+        json = JSONRenderer().render(CustomerSerializer(created).data)
+
+        return Response(loads(json), status=HTTP_201_CREATED)
