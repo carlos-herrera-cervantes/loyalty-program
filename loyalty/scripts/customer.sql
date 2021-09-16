@@ -7,9 +7,9 @@ CREATE TABLE [dbo].[loyalty_customer](
 	[first_name] [varchar](100) NOT NULL,
 	[last_name] [varchar](100) NOT NULL,
 	[external_user_id] [varchar](100) NOT NULL,
+	[birthdate] [date] NULL,
 	[created_at] [datetime] NULL,
 	[updated_at] [datetime] NULL,
-	[birthdate] [date] NULL,
 	[bucket_id] [varchar](100) NULL
 ) ON [PRIMARY]
 GO
@@ -22,4 +22,5 @@ ALTER TABLE [dbo].[loyalty_customer] ADD PRIMARY KEY CLUSTERED
 GO
 ALTER TABLE [dbo].[loyalty_customer]  WITH CHECK ADD FOREIGN KEY([bucket_id])
 REFERENCES [dbo].[loyalty_bucket] ([id])
+ON DELETE CASCADE
 GO

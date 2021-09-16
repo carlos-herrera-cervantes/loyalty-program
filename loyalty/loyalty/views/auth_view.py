@@ -57,7 +57,7 @@ class AuthView(GenericViewSet, RetrieveModelMixin):
         return Response(response, content_type='application/json')
 
     def logout(self, request: Request) -> Response:
-        access_token: str = request.headers.get('autorization')
+        access_token: str = request.headers.get('authorization')
 
         if not access_token:
             lang: str = request.headers.get('Accept-Language', 'en')
@@ -68,7 +68,7 @@ class AuthView(GenericViewSet, RetrieveModelMixin):
                 'message': initialize_manager(lang).translate('Forbidden'),
             }, status=HTTP_403_FORBIDDEN)
 
-        AccessToken.objects.filter(token=access_token).delete()
+        AccessToken.objects.filter(token=access_token.split(' ').pop()).delete()
 
         return Response(status=HTTP_204_NO_CONTENT)
 
