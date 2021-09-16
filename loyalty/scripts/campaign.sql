@@ -8,8 +8,8 @@ CREATE TABLE [dbo].[loyalty_campaign](
 	[description] [text] NULL,
 	[start_date] [datetime] NOT NULL,
 	[end_date] [datetime] NOT NULL,
-	[created_at] [datetime] NOT NULL,
-	[updated_at] [datetime] NOT NULL,
+	[created_at] [datetime] NULL,
+	[updated_at] [datetime] NULL,
 	[bucket_id] [varchar](100) NULL
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
@@ -22,4 +22,5 @@ ALTER TABLE [dbo].[loyalty_campaign] ADD PRIMARY KEY CLUSTERED
 GO
 ALTER TABLE [dbo].[loyalty_campaign]  WITH CHECK ADD FOREIGN KEY([bucket_id])
 REFERENCES [dbo].[loyalty_bucket] ([id])
+ON DELETE CASCADE
 GO

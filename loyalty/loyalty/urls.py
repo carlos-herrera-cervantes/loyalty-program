@@ -7,6 +7,7 @@ from .views.auth_view import AuthView
 from .views.bucket_view import BucketView
 from .views.customer_view import CustomerView
 from .views.customer_keys_view import CustomerKeysView
+from .views.organization_view import OrganizationView
 
 router = SimpleRouter()
 router.register(r'api/v1/users', UserView)
@@ -14,6 +15,7 @@ router.register(r'api/v1/campaigns', CampaignView)
 router.register(r'api/v1/buckets', BucketView)
 router.register(r'api/v1/customers', CustomerView)
 router.register(r'api/v1/customers-keys', CustomerKeysView)
+router.register(r'api/v1/organizations', OrganizationView)
 
 sign_in = AuthView.as_view({'post': 'sign_in'})
 logout = AuthView.as_view({'post': 'logout'})
