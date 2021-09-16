@@ -57,6 +57,7 @@ class CustomerKeys(models.Model):
     )
     key = models.CharField(max_length=100)
     value = models.TextField()
+    type = models.CharField(max_length=20)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='keys')
@@ -73,6 +74,7 @@ class CustomerKeysSerializer(ModelSerializer):
             'id',
             'key',
             'value',
+            'type',
             'customer',
             'created_at',
             'updated_at',
