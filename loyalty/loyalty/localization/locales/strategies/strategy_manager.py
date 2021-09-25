@@ -3,6 +3,7 @@ from .en_strategy import EnStrategy
 from ..interfaces.strategy_interface import Strategy
 
 class StrategyManager:
+    
     def __init__(self, lang: str):
         self.strategies: dict = {
             'en': EnStrategy(),
