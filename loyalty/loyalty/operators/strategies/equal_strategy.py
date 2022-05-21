@@ -1,15 +1,13 @@
-from interfaces.strategy_interface import Strategy
-from models.task import Task
-from models.customer import CustomerKeys
+from ..interfaces.strategy_interface import Strategy
+from ...models.task import Task
+from json import loads
 
 class EqualStrategy(Strategy):
 
-    def run_task(self, task: Task, keys: CustomerKeys) -> bool:
-        evaluationValue: str = task.evaluationValue
-        evaluationValueType: str = task.evaluationValueType
-        comparisonValue: str = task.comparisonValue
+    def run_task(self, task: Task, payload: dict, external_user_id: str) -> bool:
+        transaction: dict = loads(payload)
 
-        if evaluationValueType == 'int':
-            return int(evaluationValue) == int(comparisonValue)
+        if task.comparison_value_type == 'int':
+            return int(transaction['evaluation_value']) == int(task.comparison_value)
 
-        return evaluationValue == comparisonValue
+        return transaction['evaluation_value'] == task.comparison_value

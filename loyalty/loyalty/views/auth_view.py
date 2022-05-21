@@ -19,6 +19,7 @@ import jwt
 from ..models.user import User, UserSerializer
 from ..models.customer import Customer, CustomerSerializer
 from ..models.access_token import AccessToken
+from ..models.bucket import Bucket
 from ..localization.locales.strategies.strategy_manager import initialize_manager
 
 class AuthView(GenericViewSet, RetrieveModelMixin):
@@ -89,7 +90,11 @@ class AuthView(GenericViewSet, RetrieveModelMixin):
         if not serializer.is_valid():
             return Response(serializer.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
 
-        created = Customer.objects.create(**request.data)
+        bucket: Bucket = Bucket.objects.get(id=request.data['bucket'])
+
+        request.data.pop('bucket')
+        
+        created = Customer.objects.create(**request.data, bucket=bucket)
         json = JSONRenderer().render(CustomerSerializer(created).data)
 
         return Response(loads(json), status=HTTP_201_CREATED)

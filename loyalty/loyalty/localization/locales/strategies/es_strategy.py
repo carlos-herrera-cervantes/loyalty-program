@@ -9,10 +9,10 @@ logger = logging.getLogger(__name__)
 class EsStrategy(Strategy):
     def get_translation(self, key: str) -> str:
         path: str = os.path.relpath(__file__)
-        dir: str = os.path.dirname(path)
+        final: str = os.path.dirname(path)
 
-        dir = dir.replace('strategies', 'source')
-        os.chdir(dir)
+        final: str = final.replace('strategies', 'source')
+        os.chdir(final)
 
         try:
             with open('es.json') as file:
@@ -21,5 +21,6 @@ class EsStrategy(Strategy):
 
                 return list(filtered_values).pop()['value']
         except Exception as e:
-            logger.error('Error when loading the ES file for locales: ', e)
+            logger.error('Error when loading the ES file for locales: ')
+            logger.error(e)
             return key

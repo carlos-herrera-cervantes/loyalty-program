@@ -16,11 +16,15 @@ class Customer(models.Model):
     last_name = models.CharField(max_length=100)
     external_user_id = models.CharField(max_length=100, unique=True)
     birthdate = models.DateField()
+    active_points = models.IntegerField(default=0)
+    expired_points = models.IntegerField(default=0)
+    subtracted_points = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
     bucket = models.ForeignKey(Bucket, on_delete=models.CASCADE)
 
     class Meta:
+        db_table = 'customer'
         ordering = ['-created_at']
 
     @classmethod
@@ -30,7 +34,6 @@ class Customer(models.Model):
         """
         bucket_id: str = instance.bucket.id
         bucket: Bucket = Bucket.objects.get(id=bucket_id)
-
         customers: int = bucket.customers + 1 if bucket.customers else 1
 
         Bucket.objects.filter(id=bucket_id).update(customers=customers)
@@ -63,7 +66,7 @@ class CustomerKeys(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='keys')
 
     class Meta:
-        db_table = 'loyalty_customer_keys'
+        db_table = 'customer_keys'
         ordering = ['-created_at']
 
 class CustomerKeysSerializer(ModelSerializer):
@@ -81,7 +84,7 @@ class CustomerKeysSerializer(ModelSerializer):
         ]
 
 class CustomerSerializer(ModelSerializer):
-    keys = CustomerKeysSerializer(many=True)
+    keys = CustomerKeysSerializer(many=True, read_only=True)
 
     class Meta:
         model = Customer
@@ -95,4 +98,7 @@ class CustomerSerializer(ModelSerializer):
             'updated_at',
             'keys',
             'bucket',
+            'active_points',
+            'expired_points',
+            'subtracted_points',
         ]

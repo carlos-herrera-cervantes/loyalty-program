@@ -20,6 +20,7 @@ class Bucket(models.Model):
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
 
     class Meta:
+        db_table = 'bucket'
         ordering = ['-created_at']
 
     @classmethod
@@ -29,7 +30,6 @@ class Bucket(models.Model):
         """
         organization_id: str = instance.organization.id
         organization: Organization = Organization.objects.get(id=organization_id)
-
         buckets: int = organization.buckets + 1 if organization.buckets else 1
 
         Organization.objects.filter(id=organization_id).update(buckets=buckets)

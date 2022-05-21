@@ -1,11 +1,9 @@
-from interfaces.strategy_interface import Strategy
-from models.task import Task
-from models.customer import CustomerKeys
+from ..interfaces.strategy_interface import Strategy
+from ...models.task import Task
+from json import loads
 
 class LessThanEqualStrategy(Strategy):
 
-    def run_task(self, task: Task, keys: CustomerKeys) -> bool:
-        evaluationValue: str = task.evaluationValue
-        comparisonValue: str = task.comparisonValue
-
-        return evaluationValue <= comparisonValue
+    def run_task(self, task: Task, payload: dict, external_user_id: str) -> bool:
+        transaction: dict = loads(payload)
+        return int(transaction['evaluation_value']) <= int(task.comparison_value)

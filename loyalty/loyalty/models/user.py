@@ -22,6 +22,7 @@ class User(models.Model):
     updated_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
+        db_table = 'user'
         ordering = ['-created_at']
 
     @classmethod
@@ -29,9 +30,9 @@ class User(models.Model):
         """
         Executes after save the user
         """
-        is_new: bool = kwargs.get('created')
+        new: bool = kwargs.get('created')
 
-        if not is_new:
+        if not new:
             return
 
         password = instance.password.encode('utf-8')

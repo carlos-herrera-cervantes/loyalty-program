@@ -23,7 +23,8 @@ class JwtAuthentication(BaseAuthentication):
         try:
             access_token: AccessToken = AccessToken.objects.get(token=access_token_header)
         except Exception as e:
-            logger.error('Error when finding the current access token - Login Middleware: ', e)
+            logger.error('Error when finding the current access token - Login Middleware: ')
+            logger.error(e)
             raise AuthenticationFailed
 
         if not access_token:
@@ -41,7 +42,8 @@ class JwtAuthentication(BaseAuthentication):
 
             return user, None
         except Exception as e:
-            logger.error('Error when decoding JWT - Login Middleware: ', e)
+            logger.error('Error when decoding JWT - Login Middleware: ')
+            logger.error(e)
             AccessToken.objects.filter(token=access_token_header).delete()
 
             raise AuthenticationFailed

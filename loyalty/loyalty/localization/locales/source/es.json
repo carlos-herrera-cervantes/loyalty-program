@@ -10,5 +10,17 @@
   {
     "key": "Forbidden",
     "value": "Acceso denegado"
+  },
+  {
+    "key": "CustomerNotFound",
+    "value": "El cliente no existe"
+  },
+  {
+    "key": "EventCodeNotFound",
+    "value": "El código de evento no existe"
+  },
+  {
+    "key": "SerializeError",
+    "value": "Error transformando el payload"
   }
 ]

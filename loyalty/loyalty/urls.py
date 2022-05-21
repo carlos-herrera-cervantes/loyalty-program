@@ -12,6 +12,7 @@ from .views.operation_view import OperationView
 from .views.action_view import ActionView
 from .views.event_code_view import EventCodeView
 from .views.task_view import TaskView
+from .views.transaction_view import TransactionView
 
 router = SimpleRouter()
 router.register(r'api/v1/users', UserView)
@@ -24,6 +25,7 @@ router.register(r'api/v1/operations', OperationView)
 router.register(r'api/v1/actions', ActionView)
 router.register(r'api/v1/event-codes', EventCodeView)
 router.register(r'api/v1/tasks', TaskView)
+router.register(r'api/v1/transactions', TransactionView)
 
 sign_in = AuthView.as_view({'post': 'sign_in'})
 logout = AuthView.as_view({'post': 'logout'})

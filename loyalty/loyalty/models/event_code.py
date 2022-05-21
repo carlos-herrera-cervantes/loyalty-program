@@ -18,7 +18,7 @@ class EventCode(models.Model):
     campaign = models.ForeignKey(Campaign, on_delete=models.CASCADE)
 
     class Meta:
-        db_table = 'loyalty_event_code'
+        db_table = 'event_code'
         ordering = ['-created_at']
 
 class EventCodeSerializer(ModelSerializer):

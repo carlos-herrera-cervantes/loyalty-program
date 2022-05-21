@@ -14,5 +14,5 @@ class AccessToken(models.Model):
     updated_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        db_table = 'loyalty_access_token'
+        db_table = 'access_token'
         ordering = ['-created_at']

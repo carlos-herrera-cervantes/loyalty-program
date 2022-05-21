@@ -22,6 +22,7 @@ class Campaign(models.Model):
     bucket = models.ForeignKey(Bucket, on_delete=models.CASCADE)
 
     class Meta:
+        db_table = 'campaign'
         ordering = ['-created_at']
 
     @classmethod
@@ -31,7 +32,6 @@ class Campaign(models.Model):
         """
         bucket_id: str = instance.bucket.id
         bucket: Bucket = Bucket.objects.get(id=bucket_id)
-
         campaigns: int = bucket.campaigns + 1 if bucket.campaigns else 1
 
         Bucket.objects.filter(id=bucket_id).update(campaigns=campaigns)

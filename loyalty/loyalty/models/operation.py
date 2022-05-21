@@ -16,6 +16,7 @@ class Operation(models.Model):
     updated_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
+        db_table = 'operation'
         ordering = ['-created_at']
 
 class OperationSerializer(ModelSerializer):
