@@ -20,6 +20,7 @@ class Campaign(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
     bucket = models.ForeignKey(Bucket, on_delete=models.CASCADE)
+    active = models.BooleanField()
 
     class Meta:
         db_table = 'campaign'
@@ -64,4 +65,5 @@ class CampaignSerializer(ModelSerializer):
             'created_at',
             'updated_at',
             'bucket',
+            'active',
         ]
