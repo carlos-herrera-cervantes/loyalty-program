@@ -1,6 +1,5 @@
 from django.db import models
-from django.db.models import fields
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, ValidationError
 import uuid
 
 from .campaign import Campaign
@@ -22,6 +21,14 @@ class EventCode(models.Model):
         ordering = ['-created_at']
 
 class EventCodeSerializer(ModelSerializer):
+
+    def validate_campaign(self, campaign: Campaign):
+        campaign: Campaign = Campaign.objects.get(id=campaign.id)
+        
+        if not campaign.active:
+            raise ValidationError('Expired campaigns cannot be assigned')
+
+        return campaign
 
     class Meta:
         model = EventCode

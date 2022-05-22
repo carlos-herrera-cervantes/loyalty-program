@@ -1,6 +1,6 @@
 from django.db import models
 from django.db.models.signals import post_save
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, ValidationError
 import uuid
 
 from .campaign import Campaign
@@ -77,6 +77,14 @@ class Transaction(models.Model):
 post_save.connect(Transaction.post_save, sender=Transaction)
 
 class TransactionSerializer(ModelSerializer):
+
+    def validate_campaign(self, campaign: Campaign):
+        campaign: Campaign = Campaign.objects.get(id=campaign.id)
+        
+        if not campaign.active:
+            raise ValidationError('Expired campaigns cannot be assigned')
+
+        return campaign
 
     class Meta:
         model = Transaction
