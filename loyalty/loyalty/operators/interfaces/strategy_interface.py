@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 
 from ...models.task import Task
 
+
 class Strategy(ABC):
 
     @abstractmethod

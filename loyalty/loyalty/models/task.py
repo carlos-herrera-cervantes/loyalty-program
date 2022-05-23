@@ -5,6 +5,7 @@ import uuid
 
 from .event_code import EventCode
 
+
 class Task(models.Model):
     id = models.UUIDField(
         primary_key=True,
@@ -29,6 +30,7 @@ class Task(models.Model):
         db_table = 'task'
         ordering = ['-created_at']
 
+
 class TaskSerializer(ModelSerializer):
 
     class Meta:
@@ -48,6 +50,7 @@ class TaskSerializer(ModelSerializer):
             'created_at',
             'updated_at',
         ]
+
 
 class TaskType(Enum):
     ACTION = 'action'

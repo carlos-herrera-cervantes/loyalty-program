@@ -2,6 +2,7 @@ from .es_strategy import EsStrategy
 from .en_strategy import EnStrategy
 from ..interfaces.strategy_interface import Strategy
 
+
 class StrategyManager:
     
     def __init__(self, lang: str):
@@ -19,6 +20,7 @@ class StrategyManager:
             return key
 
         return strategy.get_translation(key)
+
 
 def initialize_manager(lang: str) -> StrategyManager:
     return StrategyManager(lang)

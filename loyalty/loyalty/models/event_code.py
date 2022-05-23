@@ -4,6 +4,7 @@ import uuid
 
 from .campaign import Campaign
 
+
 class EventCode(models.Model):
     id = models.UUIDField(
         primary_key=True,
@@ -20,8 +21,10 @@ class EventCode(models.Model):
         db_table = 'event_code'
         ordering = ['-created_at']
 
+
 class EventCodeSerializer(ModelSerializer):
 
+    @staticmethod
     def validate_campaign(self, campaign: Campaign):
         campaign: Campaign = Campaign.objects.get(id=campaign.id)
         

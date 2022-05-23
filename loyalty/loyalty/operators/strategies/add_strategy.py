@@ -2,6 +2,7 @@ from ..interfaces.strategy_interface import Strategy
 from ...models.task import Task
 from ...models.customer import CustomerKeys, Customer
 
+
 class AddStrategy(Strategy):
 
     def run_task(self, task: Task, payload: dict, external_user_id: str) -> bool:

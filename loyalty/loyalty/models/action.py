@@ -2,6 +2,7 @@ from django.db import models
 from rest_framework.serializers import ModelSerializer
 import uuid
 
+
 class Action(models.Model):
     id = models.UUIDField(
         primary_key=True,
@@ -18,6 +19,7 @@ class Action(models.Model):
     class Meta:
         db_table = 'action'
         ordering = ['-created_at']
+
 
 class ActionSerializer(ModelSerializer):
 
