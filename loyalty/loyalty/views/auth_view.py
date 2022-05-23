@@ -22,11 +22,12 @@ from ..models.access_token import AccessToken
 from ..models.bucket import Bucket
 from ..localization.locales.strategies.strategy_manager import initialize_manager
 
+
 class AuthView(GenericViewSet, RetrieveModelMixin):
     """
     A view that provides the access token mechanism to authenticate a user
     """
-
+    @staticmethod
     def sign_in(self, request: Request) -> Response:
         email: str = request.data['email']
         lang: str = request.headers.get('Accept-Language', 'en')
@@ -57,6 +58,7 @@ class AuthView(GenericViewSet, RetrieveModelMixin):
 
         return Response(response, content_type='application/json')
 
+    @staticmethod
     def logout(self, request: Request) -> Response:
         access_token: str = request.headers.get('authorization')
 
@@ -73,6 +75,7 @@ class AuthView(GenericViewSet, RetrieveModelMixin):
 
         return Response(status=HTTP_204_NO_CONTENT)
 
+    @staticmethod
     def sign_up_user(self, request: Request) -> Response:
         serializer: UserSerializer = UserSerializer(data=request.data)
 
@@ -84,6 +87,7 @@ class AuthView(GenericViewSet, RetrieveModelMixin):
 
         return Response(loads(json), status=HTTP_201_CREATED)
 
+    @staticmethod
     def sign_up_customer(self, request: Request) -> Response:
         serializer: CustomerSerializer = CustomerSerializer(data=request.data)
 

@@ -5,6 +5,7 @@ import uuid
 
 from .organization import Organization
 
+
 class Bucket(models.Model):
     id = models.UUIDField(
         primary_key=True,
@@ -44,8 +45,10 @@ class Bucket(models.Model):
 
         Organization.objects.filter(id=organization_id).update(buckets=organization.buckets - 1)
 
+
 post_save.connect(Bucket.post_save, sender=Bucket)
 post_delete.connect(Bucket.post_delete, sender=Bucket)
+
 
 class BucketSerializer(ModelSerializer):
 

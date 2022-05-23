@@ -11,6 +11,7 @@ from ..models.event_code import EventCode
 
 logger = logging.getLogger(__name__)
 
+
 def validate_customer(fn):
     """
     Validates if customer exists on database
@@ -33,6 +34,7 @@ def validate_customer(fn):
             }, status=HTTP_404_NOT_FOUND)
     return inner
 
+
 def validate_event_code(fn):
     """
     Validates if event code exists on database
@@ -54,6 +56,7 @@ def validate_event_code(fn):
                 'message': initialize_manager(lang).translate('EventCodeNotFound'),
             }, status=HTTP_404_NOT_FOUND)
     return inner
+
 
 def transform_payload(fn):
     """

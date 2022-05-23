@@ -6,6 +6,7 @@ import bcrypt
 
 from .roles import Role
 
+
 class User(models.Model):
     id = models.UUIDField(
         primary_key=True,

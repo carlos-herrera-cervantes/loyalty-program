@@ -11,6 +11,7 @@ from .subtract_points_strategy import SubtractPointsStrategy
 from ..interfaces.strategy_interface import Strategy
 from ...models.task import Task
 
+
 class StrategyManager:
 
     def __init__(self, operator: str) -> None:
@@ -36,6 +37,7 @@ class StrategyManager:
             return False
 
         return strategy.run_task(task, payload, external_user_id)
+
 
 def initialize_manager(operator: str):
     return StrategyManager(operator)

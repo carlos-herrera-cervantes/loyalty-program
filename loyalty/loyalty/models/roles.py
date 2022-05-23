@@ -1,8 +1,10 @@
 from enum import Enum
 
+
 class Role(Enum):
     SUPER_ADMIN = 'SuperAdmin'
     READER = 'Reader'
+
 
 class Ability(Enum):
     READ_USERS = 'read.users'

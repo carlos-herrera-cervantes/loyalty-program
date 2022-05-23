@@ -5,6 +5,7 @@ import uuid
 
 from .bucket import Bucket
 
+
 class Customer(models.Model):
     id = models.UUIDField(
         primary_key=True,
@@ -48,8 +49,10 @@ class Customer(models.Model):
 
         Bucket.objects.filter(id=bucket_id).update(customers=bucket.customers - 1)
 
+
 post_save.connect(Customer.post_save, sender=Customer)
 post_delete.connect(Customer.post_delete, sender=Customer)
+
 
 class CustomerKeys(models.Model):
     id = models.UUIDField(
@@ -69,6 +72,7 @@ class CustomerKeys(models.Model):
         db_table = 'customer_keys'
         ordering = ['-created_at']
 
+
 class CustomerKeysSerializer(ModelSerializer):
 
     class Meta:
@@ -82,6 +86,7 @@ class CustomerKeysSerializer(ModelSerializer):
             'created_at',
             'updated_at',
         ]
+
 
 class CustomerSerializer(ModelSerializer):
     keys = CustomerKeysSerializer(many=True, read_only=True)

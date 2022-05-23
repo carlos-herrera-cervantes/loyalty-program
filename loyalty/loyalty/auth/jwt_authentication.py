@@ -11,6 +11,7 @@ from ..models.access_token import AccessToken
 
 logger = logging.getLogger(__name__)
 
+
 class JwtAuthentication(BaseAuthentication):
     def authenticate(self, request: Request) -> Tuple[User, None]:
         authorization_header: str = request.headers.get('authorization')

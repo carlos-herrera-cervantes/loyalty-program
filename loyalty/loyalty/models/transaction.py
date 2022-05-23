@@ -4,11 +4,11 @@ from rest_framework.serializers import ModelSerializer, ValidationError
 import uuid
 
 from .campaign import Campaign
-from .transactions_status import TransactionStatus
 from .task import Task, TaskType
 from .event_code import EventCode
 from .transactions_status import TransactionStatus
 from ..operators.strategies.strategy_manager import initialize_manager
+
 
 class Transaction(models.Model):
     id = models.UUIDField(
@@ -74,10 +74,13 @@ class Transaction(models.Model):
         instance.status = TransactionStatus.PROCESSED.value
         instance.save()
 
+
 post_save.connect(Transaction.post_save, sender=Transaction)
+
 
 class TransactionSerializer(ModelSerializer):
 
+    @staticmethod
     def validate_campaign(self, campaign: Campaign):
         campaign: Campaign = Campaign.objects.get(id=campaign.id)
         

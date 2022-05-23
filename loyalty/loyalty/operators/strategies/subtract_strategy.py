@@ -2,12 +2,13 @@ from ..interfaces.strategy_interface import Strategy
 from ...models.task import Task
 from ...models.customer import CustomerKeys, Customer
 
+
 class SubtractStrategy(Strategy):
 
     def run_task(self, task: Task, payload: dict, external_user_id: str) -> bool:
-        customers: Customer = Customer.objects.filter(external_user_id=external_user_id).values('id')
+        customers: Customer = Customer.objects.get(external_user_id=external_user_id).values('id')
         key: CustomerKeys = CustomerKeys.objects.get(
-            customer=customers[0]['id'],
+            customer=customers.id,
             key=task.customer_property,
         )
         

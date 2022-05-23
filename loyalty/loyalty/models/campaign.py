@@ -6,6 +6,7 @@ import uuid
 
 from .bucket import Bucket
 
+
 class Campaign(models.Model):
     id = models.UUIDField(
         primary_key=True,
@@ -47,8 +48,10 @@ class Campaign(models.Model):
 
         Bucket.objects.filter(id=bucket_id).update(campaigns=bucket.campaigns - 1)
 
+
 post_save.connect(Campaign.post_save, sender=Campaign)
 post_delete.connect(Campaign.post_delete, sender=Campaign)
+
 
 class CampaignSerializer(ModelSerializer):
     start_date = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
