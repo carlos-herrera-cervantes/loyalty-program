@@ -1,0 +1,26 @@
+[
+  {
+    "key": "InvalidCredentials",
+    "value": "Invalid credentials"
+  },
+  {
+    "key": "UserNotFound",
+    "value": "User not found"
+  },
+  {
+    "key": "Forbidden",
+    "value": "Access denied"
+  },
+  {
+    "key": "CustomerNotFound",
+    "value": "The customer does not exists"
+  },
+  {
+    "key": "EventCodeNotFound",
+    "value": "The event code does not exists"
+  },
+  {
+    "key": "SerializeError",
+    "value": "Error serializing payload"
+  }
+]
