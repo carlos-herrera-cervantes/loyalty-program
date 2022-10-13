@@ -7,3 +7,7 @@ class AppConfig(Enum):
     PORT = os.getenv('PORT')
     ENVIRONMENT = os.getenv('ENVIRONMENT')
     NAME = 'loyalty-program'
+
+
+class MongoDB(Enum):
+    DEFAULT_DB = os.getenv("MONGO_DB")
