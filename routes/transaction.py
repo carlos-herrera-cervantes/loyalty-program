@@ -28,7 +28,6 @@ transaction_router = Blueprint(
         '/transactions'
     )
 )
-promise = Promise()
 
 
 @transaction_router.route('/<pk>', methods=['GET'])
@@ -39,7 +38,7 @@ async def get_by_id(
     campaign_id: str,
     pk: str
 ) -> json:
-    transaction: Transaction = await promise.resolve(
+    transaction: Transaction = await Promise.resolve(
         partial(TransactionRepository.get_by_id, pk)
     )
 
@@ -68,7 +67,7 @@ async def get_all(
         offset,
         limit
     )
-    pageable: Pageable = await promise.resolve(fn)
+    pageable: Pageable = await Promise.resolve(fn)
 
     return json(loads(pageable.pages))
 
@@ -86,7 +85,7 @@ async def create(
     campaign_id: str
 ) -> json:
     body: dict = req.json
-    (saved, err) = await promise.resolve(
+    (saved, err) = await Promise.resolve(
         partial(TransactionRepository.create, body)
     )
 

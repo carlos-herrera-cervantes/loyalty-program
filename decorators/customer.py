@@ -2,7 +2,6 @@ from typing import Callable
 from functools import wraps
 
 from sanic.request import Request
-from sanic.response import json
 
 
 def flush_readonly_fields(fn: Callable) -> Callable:

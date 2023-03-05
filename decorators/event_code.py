@@ -8,14 +8,12 @@ from models.campaign import Campaign
 from repositories.campaign import CampaignRepository
 from common.promise import Promise
 
-promise = Promise()
-
 
 def validate_campaign_id(fn: Callable) -> Callable:
     @wraps(fn)
     async def inner_fn(req: Request, *args: dict, **kwargs: dict) -> Callable:
         campaign_id: str = req.match_info.get('campaign_id')
-        campaign: Campaign = await promise.resolve(
+        campaign: Campaign = await Promise.resolve(
             partial(CampaignRepository.get_by_id, campaign_id)
         )
 

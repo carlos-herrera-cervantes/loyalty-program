@@ -23,7 +23,6 @@ task_router = Blueprint(
         '/event-codes/<event_code_id>/tasks'
     )
 )
-promise = Promise()
 
 
 @task_router.route('/<pk>', methods=['GET'])
@@ -35,7 +34,7 @@ async def get_by_id(
     event_code_id: str,
     pk: str
 ) -> json:
-    task: Task = await promise.resolve(
+    task: Task = await Promise.resolve(
         partial(TaskRepository.get_by_id, pk)
     )
 
@@ -65,7 +64,7 @@ async def get_all(
         offset,
         limit
     )
-    pageable: Pageable = await promise.resolve(fn)
+    pageable: Pageable = await Promise.resolve(fn)
 
     return json(loads(pageable.pages))
 
@@ -81,7 +80,7 @@ async def create(
     event_code_id: str,
 ) -> json:
     body: dict = req.json
-    (saved, err) = await promise.resolve(
+    (saved, err) = await Promise.resolve(
         partial(TaskRepository.create, body)
     )
 
@@ -102,7 +101,7 @@ async def delete_by_id(
     event_code_id: str,
     pk: str
 ) -> json:
-    await promise.resolve(partial(
+    await Promise.resolve(partial(
         TaskRepository.delete_by_id, pk)
     )
     return json(None, status=204)

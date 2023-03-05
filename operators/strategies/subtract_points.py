@@ -1,4 +1,3 @@
-
 from operators.interfaces.strategy import Strategy
 from models.task import Task
 from models.customer import Customer

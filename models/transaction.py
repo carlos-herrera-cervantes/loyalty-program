@@ -1,8 +1,8 @@
+from datetime import datetime
+
 from mongoengine import *
 from mongoengine.signals import post_save
 from bson.objectid import ObjectId
-
-from datetime import datetime
 
 from enums.transaction_status import TransactionStatus
 from enums.task_type import TaskType

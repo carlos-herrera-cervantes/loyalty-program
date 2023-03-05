@@ -8,14 +8,12 @@ from models.organization import Organization
 from repositories.organization import OrganizationRepository
 from common.promise import Promise
 
-promise = Promise()
-
 
 def validate_organization_id(fn: Callable) -> Callable:
     @wraps(fn)
     async def inner_fn(req: Request, *args: dict, **kwargs: dict) -> Callable:
         organization_id: str = req.match_info.get('organization_id')
-        organization: Organization = await promise.resolve(
+        organization: Organization = await Promise.resolve(
             partial(OrganizationRepository.get_by_id, organization_id)
         )
 
