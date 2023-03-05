@@ -14,7 +14,6 @@ from repositories.event_code import EventCodeRepository
 from common.promise import Promise
 
 logger = logging.getLogger(__name__)
-promise = Promise()
 
 
 def validate_customer(fn: Callable) -> Callable:
@@ -23,7 +22,7 @@ def validate_customer(fn: Callable) -> Callable:
         body: dict = req.json
         external_user_id: str = body.get('external_user_id', None)
 
-        customer: Customer | None = await promise.resolve(
+        customer: Customer | None = await Promise.resolve(
             partial(CustomerRepository.get_one, {'external_user_id': external_user_id})
         )
 
@@ -40,7 +39,7 @@ def validate_event_code(fn: Callable) -> Callable:
         body: dict = req.json
         event_code_name: str = body.get('event_code', None)
 
-        event_code: EventCode | None = await promise.resolve(
+        event_code: EventCode | None = await Promise.resolve(
             partial(EventCodeRepository.get_one, {'name': event_code_name})
         )
 

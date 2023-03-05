@@ -17,12 +17,11 @@ operation_router = Blueprint(
     'operation_router',
     url_prefix='/operations'
 )
-promise = Promise()
 
 
 @operation_router.route('/<pk>', methods=['GET'])
 async def get_by_id(req: Request, pk: str) -> json:
-    operation: Operation = await promise.resolve(
+    operation: Operation = await Promise.resolve(
         partial(OperationRepository.get_by_id, pk)
     )
 
@@ -40,7 +39,7 @@ async def get_all(req: Request) -> json:
     offset: int = req.args['offset']
     limit: int = req.args['limit']
 
-    pageable: Pageable = await promise.resolve(
+    pageable: Pageable = await Promise.resolve(
         partial(OperationRepository.get_all, offset, limit)
     )
 
@@ -51,7 +50,7 @@ async def get_all(req: Request) -> json:
 @validate_body
 async def create(req: Request) -> json:
     body: dict = req.json
-    (saved, err) = await promise.resolve(
+    (saved, err) = await Promise.resolve(
         partial(OperationRepository.create, body)
     )
 
@@ -65,7 +64,7 @@ async def create(req: Request) -> json:
 
 @operation_router.route('/<pk>', methods=['DELETE'])
 async def delete_by_id(req: Request, pk: str) -> json:
-    await promise.resolve(partial(
+    await Promise.resolve(partial(
         OperationRepository.delete_by_id, pk)
     )
     return json(None, status=204)

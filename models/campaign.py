@@ -1,8 +1,8 @@
+from datetime import datetime
+
 from mongoengine import *
 from mongoengine.signals import pre_save, post_save, post_delete
 from bson.objectid import ObjectId
-
-from datetime import datetime
 
 from models.bucket import Bucket
 

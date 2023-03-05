@@ -1,4 +1,3 @@
-from datetime import datetime
 from mongoengine import Document
 
 from common.serializer.strategies.strategy_manager import initialize_manager

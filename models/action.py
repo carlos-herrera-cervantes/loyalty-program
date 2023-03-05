@@ -1,7 +1,7 @@
+from datetime import datetime
+
 from mongoengine import *
 from mongoengine.signals import pre_save
-
-from datetime import datetime
 
 def validate_name(name: str) -> ValidationError:
     if not len(name):

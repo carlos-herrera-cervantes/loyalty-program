@@ -8,14 +8,12 @@ from models.event_code import EventCode
 from repositories.event_code import EventCodeRepository
 from common.promise import Promise
 
-promise = Promise()
-
 
 def validate_event_code_id(fn: Callable) -> Callable:
     @wraps(fn)
     async def inner_fn(req: Request, *args: dict, **kwargs: dict) -> Callable:
         event_code_id: str = req.match_info.get('event_code_id')
-        event_code: EventCode = await promise.resolve(
+        event_code: EventCode = await Promise.resolve(
             partial(EventCodeRepository.get_by_id, event_code_id)
         )
 

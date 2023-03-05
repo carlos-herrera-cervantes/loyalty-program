@@ -1,6 +1,7 @@
+from json import loads
+
 from operators.interfaces.strategy import Strategy
 from models.task import Task
-from json import loads
 
 
 class EqualStrategy(Strategy):

@@ -19,7 +19,6 @@ event_code_router = Blueprint(
     'event_code_router',
     url_prefix='/organizations/<organization_id>/buckets/<bucket_id>/campaigns/<campaign_id>/event-codes'
 )
-promise = Promise()
 
 
 @event_code_router.route('/<pk>', methods=['GET'])
@@ -30,7 +29,7 @@ async def get_by_id(
     campaign_id: str,
     pk: str
 ) -> json:
-    event_code: EventCode = await promise.resolve(
+    event_code: EventCode = await Promise.resolve(
         partial(EventCodeRepository.get_by_id, pk)
     )
 
@@ -59,7 +58,7 @@ async def get_all(
         offset,
         limit
     )
-    pageable: Pageable = await promise.resolve(fn)
+    pageable: Pageable = await Promise.resolve(fn)
 
     return json(loads(pageable.pages))
 
@@ -74,7 +73,7 @@ async def create(
     campaign_id: str
 ) -> json:
     body: dict = req.json
-    (saved, err) = await promise.resolve(
+    (saved, err) = await Promise.resolve(
         partial(EventCodeRepository.create, body)
     )
 
@@ -94,7 +93,7 @@ async def delete_by_id(
     campaign_id: str,
     pk: str
 ) -> json:
-    await promise.resolve(partial(
+    await Promise.resolve(partial(
         EventCodeRepository.delete_by_id, pk)
     )
     return json(None, status=204)
