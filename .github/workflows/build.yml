@@ -1,0 +1,15 @@
+name: Run unit and integration tests
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run unit and integration tests
+        run: |
+          docker-compose up --abort-on-container-exit --exit-code-from test

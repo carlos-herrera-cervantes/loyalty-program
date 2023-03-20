@@ -20,7 +20,6 @@ class TransactionRepository(metaclass=SingletonMeta):
         except Exception as e:
             logger.error('Error getting transaction by id')
             logger.error(e)
-
             return None
 
     @staticmethod

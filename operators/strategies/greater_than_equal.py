@@ -6,9 +6,9 @@ from models.task import Task
 
 class GreaterThanEqualStrategy(Strategy):
 
-    def run_task(self, task: Task, payload: dict, external_user_id: str) -> bool:
+    def run_task(self, task: Task, payload: str, external_user_id: str) -> bool:
         transaction: dict = loads(payload)
-        evaluation_value: int = transaction.get(task.evaluation_property, None)
+        evaluation_value: str = transaction.get(task.evaluation_property, None)
 
         if not evaluation_value:
             return False

@@ -20,7 +20,6 @@ class CustomerRepository(metaclass=SingletonMeta):
         except Exception as e:
             logger.error('Error getting customer by id')
             logger.error(e)
-
             return None
 
     @staticmethod
@@ -30,7 +29,6 @@ class CustomerRepository(metaclass=SingletonMeta):
         except Exception as e:
             logger.error('Error getting customer by filter')
             logger.error(e)
-
             return None
 
     @staticmethod
