@@ -11,4 +11,4 @@ class MongoClient(metaclass=SingletonMeta):
 
     def connect(self) -> None:
         print('Successful connected to MongoDB')
-        mongoengine.connect(self.__db, alias='default')
+        mongoengine.connect(host=self.__db)

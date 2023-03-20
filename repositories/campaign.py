@@ -20,7 +20,6 @@ class CampaignRepository(metaclass=SingletonMeta):
         except Exception as e:
             logger.error('Error getting campaign by id')
             logger.error(e)
-
             return None
 
     @staticmethod

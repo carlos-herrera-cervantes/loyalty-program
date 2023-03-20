@@ -20,7 +20,6 @@ class ActionRepository(metaclass=SingletonMeta):
         except Exception as e:
             logger.error('Error getting action by id')
             logger.error(e)
-
             return None
 
     @staticmethod
@@ -43,7 +42,7 @@ class ActionRepository(metaclass=SingletonMeta):
     @staticmethod
     def create(body: dict) -> Tuple[Action | str, bool]:
         try:
-            action: Action = Action(**body)
+            action = Action(**body)
             saved: Action = action.save()
             return (saved, False)
         except Exception as e:

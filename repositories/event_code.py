@@ -20,7 +20,6 @@ class EventCodeRepository(metaclass=SingletonMeta):
         except Exception as e:
             logger.error('Error getting event code by id')
             logger.error(e)
-
             return None
 
     @staticmethod
@@ -30,7 +29,6 @@ class EventCodeRepository(metaclass=SingletonMeta):
         except Exception as e:
             logger.error('Error getting event code by filter')
             logger.error(e)
-
             return None
 
     @staticmethod

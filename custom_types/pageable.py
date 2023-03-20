@@ -16,7 +16,7 @@ class Pageable:
     @property
     def pages(self) -> dict:
         skip: int = self.__page * self.__page_size
-        
+
         self.__has_next = skip + self.__page_size < self.__total_docs
         self.__has_previous = not(self.__page == 0)
 

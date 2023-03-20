@@ -30,7 +30,7 @@ class StrategyManager:
 
         self.operator = operator
 
-    def do_action(self, task: Task, payload: dict, external_user_id: str) -> bool:
+    def do_action(self, task: Task, payload: str, external_user_id: str) -> bool:
         strategy: Strategy = self.strategies.get(self.operator)
 
         if not strategy:

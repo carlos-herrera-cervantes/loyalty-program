@@ -20,7 +20,6 @@ class TaskRepository(metaclass=SingletonMeta):
         except Exception as e:
             logger.error('Error getting task by id')
             logger.error(e)
-
             return None
 
     @staticmethod
